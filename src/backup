@@ -1,0 +1,54 @@
+#! /bin/sh
+
+if [ "$1" == "-y" ];
+then
+	OVERWRITE="yes";
+	shift;
+fi
+
+SRC=$1;
+DEST=$2;
+
+TODAY=$(date '+%y%m%d'); #get the date as a number in the form of ymd
+TODAY_READABLE=$(date '+%m,%d,%y'); #get the date as the folder name will be m,d,y
+
+LAST_BACKUP=$( ls $DEST | sed 's/^\(.*\),\(.*\),\(.*\)$/\3\1\2/g' | sort -nr | head -1); #get the last backup,
+#as a number in the form of ymd
+
+LAST_BACKUP_READABLE=$(echo $LAST_BACKUP | sed 's/^\([0-9]\{2\}\)\([0-9]\{2\}\)\([0-9]\{2\}\)$/\2,\3,\1/g'); #get the last
+#backup as it is in the file name m,d,y
+
+if [ "$(ls $DEST)" = "" ];
+then 
+
+	mkdir $DEST/$TODAY_READABLE
+	rsync -r  --progress -H $SRC $DEST/$TODAY_READABLE;
+else
+	if [ "$LAST_BACKUP" = $TODAY ];
+	then
+
+		if [  -z "$OVERWRITE" ];
+		then
+			echo "backup already completed for today, overwrite? [yes/no]"
+			read OVERWRITE;
+		fi
+		
+		if [ "$OVERWRITE" = "yes" ];
+		then
+			rm -rf $DEST/$LAST_BACKUP_READABLE;
+			mkdir $DEST/$TODAY_READABLE;
+			rsync -r --progress $SRC $DEST/$TODAY_READABLE;
+
+		else #doesn't want to overwrite
+			exit 1;
+		fi
+
+		exit 0;
+
+	else #last backup was yesterday
+
+		mkdir  $DEST/$TODAY_READABLE
+
+		rsync -avz --progress --link-dest=$(pwd)/$DEST/$LAST_BACKUP_READABLE $SRC/ $DEST/$TODAY_READABLE 
+	fi
+fi
