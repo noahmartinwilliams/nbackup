@@ -1,0 +1,30 @@
+.\" Process this file with
+.\" groff -man -Tascii foo.1
+.\"
+.TH backup 1 "APRIL 2011" 
+.SH NAME
+backup \- make doing backups simpler
+.SH SYNOPSIS
+.B backup
+.I [-y]
+.I source
+.I destination
+.SH DESCRIPTION
+.B backup
+backup makes backing up data simpler. It would use hard links, but 
+rsync won't for some reason allow for that to happen. it does however make directories for
+every day, and check to see if the data has already been backed up for today, and prompts you if you
+want to overwrite.
+.SH OPTIONS
+.B -y
+this option causes backup to automatically assume you want to override existing backups
+.SH FILES
+none
+.SH ENVIRONMENT
+none
+.SH BUGS
+please send all bug reports to: <asciencegeek@yahoo.com>
+.SH AUTHOR
+Noah Williams <asciencegeek@yahoo.com>
+.SH "SEE ALSO"
+.BR rsync (1)
