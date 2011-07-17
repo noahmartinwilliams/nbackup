@@ -4,6 +4,11 @@ if [ "$1" = "-y" ];
 then
 	OVERWRITE="yes";
 	shift;
+elif [ "$1" = "--version" ];
+then
+	echo "0.1.0"
+	echo "This program is licensed under the GNU GPL, it is free software, and can be modified and redistributed."
+	echo "This program is offered WITHOUT warranty to the extent allowed by applicable law"
 fi
 
 SRC=$1;
