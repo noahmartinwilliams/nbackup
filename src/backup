@@ -1,5 +1,15 @@
 #! /bin/bash
 
+if [ "$1" = "-v" ];
+then
+	echo "nbackup: 0.1.0"
+	echo "This program is free software (free as in freedom), you may modify it, and redistribute it,"
+	echo "provided that you provide source code and convey that the program has been modified."
+	echo "There is NO warranty, not even the implied warranty of merchantability or fitness for a particular purpose."
+	echo "See the GPL version two for more details (type in \"man gpl\")"
+	exit;
+fi
+
 if [ "$1" = "-y" ];
 then
 	OVERWRITE="yes";
