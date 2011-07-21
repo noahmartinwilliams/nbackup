@@ -1,9 +1,8 @@
-#! /bin/sh
+#! /bin/bash
 
 if [ "$1" = "-y" ];
 then
 	OVERWRITE="yes";
-	shift;
 elif [ "$1" = "--version" ];
 then
 	echo "0.1.0"
