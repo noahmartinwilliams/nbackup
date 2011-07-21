@@ -1,0 +1,8 @@
+Package: nbackup
+Version: 0.1.0
+Maintainer: Noah Williams <thecrazymancan@gmail.com>
+Depends: coreutils (>=7.4.0),  grep (>=2.5.4), rsync(>=3.0.7), sed (>=4.2.1), bash(>=4.1.5)
+Architecture: all
+Description: simple command line backup program
+	A very simple program for doing backups, comes without a gui front
+	end.
