@@ -1,13 +1,14 @@
 #! /bin/bash
 
 cd ..
-cp backup backup.0.1.0-all
+cp -r backup backup.0.1.0-all
+cd backup.0.1.0-all
 gzip doc/*
 mkdir usr
 mkdir usr/share
 mkdir usr/share/man
 mkdir usr/share/man/man{1..9}
-find doc -type f -regex '^.*\.[0-9]$' -exec mv '{}' usr/share/man/ \;
+find doc -type f -regex '^.*\.[0-9]\.gz$' -exec mv '{}' usr/share/man/ \;
 
 mv usr/share/man/*.1 /usr/share/man/man1
 mv usr/share/man/*.2 /usr/share/man/man2
@@ -26,3 +27,6 @@ rmdir doc
 rmdir src
 rm package.sh
 rm -rf .git
+
+cd ..
+dpkg -b backup.0.1.0-all
